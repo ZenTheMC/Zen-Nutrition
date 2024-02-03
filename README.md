@@ -16,7 +16,7 @@ SOLUTION: I created a user-friendly and science-based responsive full-stack appl
 
 ## How It's Made:
 
-**Tech used:** HTML, CSS, JavaScript, React, Node, Express, MongoDB, Vercel.
+**Tech used:** HTML, CSS, JavaScript, React, Node, MongoDB, Vercel.
 
 -Users can create an account.
 
