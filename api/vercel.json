@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "build": {
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "installCommand": "npm install",
+      "buildCommand": "echo 'No build step'",
+      "outputDirectory": "./"
+    }
+  }
+  

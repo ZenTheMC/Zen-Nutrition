@@ -1,18 +1,13 @@
 // Vercel API endpoint serverless function
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-// To use ES6 import/export syntax in the backend, you must include .js at the end of file names that are locally imported(not from libraries)
 import User from './models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({ path: './config/.env' });
-}
-
-mongoose.connect(process.env.MONGO_URI);
+import dbConnect from './database/dbConnection.js';
 
 export default async (req, res) => {
+  // Ensure the database connection is established
+  await dbConnect();
+
   if (req.method === 'POST') {
     try {
       const { username, email, password } = req.body;
