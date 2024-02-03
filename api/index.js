@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+// To use ES6 import/export syntax in the backend, you must include .js at the end of file names that are locally imported(not from libraries)
 
 dotenv.config({ path: './config/.env' });
 
