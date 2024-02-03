@@ -6,8 +6,9 @@ import User from './models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-// Remove entire dotenv line when deploying to vercel and add environment variables to deployment
-dotenv.config({ path: './config/.env' });
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: './config/.env' });
+}
 
 mongoose.connect(process.env.MONGO_URI);
 
