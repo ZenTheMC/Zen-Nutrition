@@ -4,12 +4,10 @@ import requireAuth from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', requireAuth, async (req, res) => { /* ... */ });
-router.get('/:userId', requireAuth, async (req, res) => { /* ... */ });
-
 // POST route to add a new food entry
-router.post('/', async (req, res) => {
-  const { name, amount, protein, carbs, fats, user } = req.body;
+router.post('/', requireAuth, async (req, res) => {
+  const { name, amount, protein, carbs, fats } = req.body;
+  const user = req.user; // Extracted from JWT by requireAuth middleware
   try {
     const newFood = new Food({ name, amount, protein, carbs, fats, user });
     await newFood.save();
@@ -20,7 +18,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET route to retrieve all food entries for a user
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', requireAuth, async (req, res) => {
   try {
     const foods = await Food.find({ user: req.params.userId });
     res.json(foods);
