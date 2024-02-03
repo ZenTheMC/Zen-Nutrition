@@ -8,6 +8,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import foodRoutes from './routes/foodRoutes.js';
 
+// Remove entire dotenv line when deploying to vercel and add environment variables to deployment
 dotenv.config({ path: './config/.env' });
 
 const app = express();
