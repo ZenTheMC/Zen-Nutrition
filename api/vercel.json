@@ -9,23 +9,7 @@
   "routes": [
     {
       "src": "/api/food",
-      "methods": ["POST"],
-      "dest": "/api/createFood.js"
-    },
-    {
-      "src": "/api/food",
-      "methods": ["GET"],
-      "dest": "/api/getFood.js"
-    },
-    {
-      "src": "/api/food/(.+)",
-      "methods": ["PUT"],
-      "dest": "/api/updateFood.js"
-    },
-    {
-      "src": "/api/food/(.+)",
-      "methods": ["DELETE"],
-      "dest": "/api/deleteFood.js"
+      "dest": "/api/food.js"
     },
     {
       "src": "/api/(.*)",
