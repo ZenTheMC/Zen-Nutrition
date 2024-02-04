@@ -8,8 +8,28 @@
   ],
   "routes": [
     {
+      "src": "/api/food",
+      "methods": ["POST"],
+      "dest": "/api/createFood.js"
+    },
+    {
+      "src": "/api/food",
+      "methods": ["GET"],
+      "dest": "/api/getFood.js"
+    },
+    {
+      "src": "/api/food/(.+)",
+      "methods": ["PUT"],
+      "dest": "/api/updateFood.js"
+    },
+    {
+      "src": "/api/food/(.+)",
+      "methods": ["DELETE"],
+      "dest": "/api/deleteFood.js"
+    },
+    {
       "src": "/api/(.*)",
-      "dest": "/$1.js"
+      "dest": "/api/$1.js"
     }
   ],
   "build": {
