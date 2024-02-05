@@ -1,5 +1,5 @@
 // Vercel API endpoint serverless function
-import User from './models/User.js'; // Adjust the import path as necessary
+import User from './models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dbConnect from './database/dbConnection.js';
@@ -11,8 +11,8 @@ export default async (req, res) => {
     const { email, password } = req.body;
 
     try {
-      // Find the user by email
-      const user = await User.findOne({ email });
+      // Find the user by email with case-insensitive match
+      const user = await User.findOne({ email: email.toLowerCase() });
       if (!user) {
         return res.status(401).json({ error: 'Login failed. Check authentication credentials' });
       }
@@ -32,7 +32,6 @@ export default async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   } else {
-    // Respond with method not allowed if not a POST request
     res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
