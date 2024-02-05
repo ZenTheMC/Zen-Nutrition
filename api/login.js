@@ -7,7 +7,7 @@ export default async (req, res) => {
   await dbConnect();
 
   // Dynamically set the allowed origin based on the request origin
-  const allowedOrigins = ['https://zen-nutrition.vercel.app', 'http://localhost:5173'];
+  const allowedOrigins = ['https://zen-nutrition.vercel.app'];
   const requestOrigin = req.headers.origin;
   if (allowedOrigins.includes(requestOrigin)) {
     res.setHeader('Access-Control-Allow-Origin', requestOrigin);
