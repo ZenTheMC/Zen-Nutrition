@@ -8,8 +8,22 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
+      "src": "/api/register",
+      "dest": "/register.js"
+    },
+    {
+      "src": "/api/login",
+      "dest": "/login.js"
+    },
+    {
+      "src": "/api/food",
+      "methods": ["POST"],
+      "dest": "/createFood.js"
+    },
+    {
+      "src": "/api/food",
+      "methods": ["GET"],
+      "dest": "/getFood.js"
     }
   ],
   "build": {

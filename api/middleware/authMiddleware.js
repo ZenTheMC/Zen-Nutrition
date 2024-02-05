@@ -8,7 +8,7 @@ const requireAuth = (req, res, next) => {
       if (err) {
         return res.status(401).json({ message: "Unauthorized" });
       } else {
-        req.user = decoded.userId; // Assuming your JWT payload includes a userId field
+        req.user = decoded.userId;
         next();
       }
     });

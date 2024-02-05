@@ -1,3 +1,4 @@
+// Vercel API endpoint serverless function
 import dbConnect from './database/dbConnection.js';
 import Food from './models/Food.js';
 import jwt from 'jsonwebtoken';

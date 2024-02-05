@@ -7,7 +7,7 @@ const foodSchema = new mongoose.Schema({
   },
   amount: {
     type: Number,
-    default: 100 // Default amount in grams
+    default: 100
   },
   protein: {
     type: Number,

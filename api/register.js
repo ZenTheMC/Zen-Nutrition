@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import dbConnect from './database/dbConnection.js';
 
 export default async (req, res) => {
-  // Ensure the database connection is established
   await dbConnect();
 
   if (req.method === 'POST') {

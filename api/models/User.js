@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // Add any other user fields here
 });
 
 userSchema.pre('save', async function (next) {

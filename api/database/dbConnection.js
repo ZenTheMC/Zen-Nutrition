@@ -25,7 +25,7 @@ async function dbConnect() {
       })
       .catch(err => {
         console.error('Could not connect to MongoDB:', err);
-        throw err; // Rethrow the error so it can be caught by the caller
+        throw err;
       });
   }
   
@@ -35,7 +35,7 @@ async function dbConnect() {
   } catch (err) {
     // Handle the error here or log it
     console.error('MongoDB connection error:', err);
-    throw err; // Optionally rethrow the error to be handled or logged by the caller
+    throw err;
   }
 }
 

@@ -11,8 +11,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
     "build": "echo \"No build step required for serverless functions\""
   },
   "author": "",
