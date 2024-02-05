@@ -17,13 +17,7 @@
     },
     {
       "src": "/api/food",
-      "methods": ["POST"],
-      "dest": "/createFood.js"
-    },
-    {
-      "src": "/api/food",
-      "methods": ["GET"],
-      "dest": "/getFood.js"
+      "dest": "/food.js"
     }
   ],
   "build": {
