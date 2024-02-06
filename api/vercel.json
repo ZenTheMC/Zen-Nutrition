@@ -18,6 +18,14 @@
     {
       "src": "/api/food",
       "dest": "/food.js"
+    },
+    {
+      "src": "/api/daily-log",
+      "dest": "/dailyLog.js"
+    },
+    {
+      "src": "/api/daily-log/(.*)",
+      "dest": "/dailyLog.js"
     }
   ],
   "build": {
