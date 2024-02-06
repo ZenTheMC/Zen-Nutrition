@@ -39,17 +39,45 @@ export default async (req, res) => {
             break;
         }
         case 'GET': {
-            // For retrieving a daily log by date
-            const { date } = req.query; // Assuming the query parameter is named 'date'
-            
-            try {
-              const dailyLog = await DailyLog.findOne({ user: userId, date: new Date(date) }).populate('foodEntries.food');
-              if (!dailyLog) return res.status(404).json({ message: "Daily log not found" });
-              res.json(dailyLog);
-            } catch (error) {
-              res.status(500).json({ message: error.message });
-            }
-            break;
+          const { date } = req.query; // Assuming the query parameter is named 'date'
+          
+          try {
+            const dailyLog = await DailyLog.findOne({ user: userId, date: new Date(date) }).populate('foodEntries.food');
+            if (!dailyLog) return res.status(404).json({ message: "Daily log not found" });
+
+            // Initialize macros and calories
+            let totalProtein = 0, totalCarbs = 0, totalFats = 0;
+
+            dailyLog.foodEntries.forEach(entry => {
+              // Adjusted calculation to account for the logged quantity
+              const proteinPer100g = entry.food.protein * (entry.quantity / entry.food.amount);
+              const carbsPer100g = entry.food.carbs * (entry.quantity / entry.food.amount);
+              const fatsPer100g = entry.food.fats * (entry.quantity / entry.food.amount);
+
+              totalProtein += proteinPer100g;
+              totalCarbs += carbsPer100g;
+              totalFats += fatsPer100g;
+            });
+
+            // Calculate total calories
+            const totalCalories = (totalProtein + totalCarbs) * 4 + totalFats * 9;
+
+            // Append total macros and calories to the response
+            const response = {
+              ...dailyLog.toObject(),
+              totalMacros: {
+                protein: totalProtein,
+                carbs: totalCarbs,
+                fats: totalFats,
+              },
+              totalCalories,
+            };
+
+            res.json(response);
+          } catch (error) {
+            res.status(500).json({ message: error.message });
+          }
+          break;
         }
         case 'DELETE': {
             const { date, foodEntryId } = req.body; // Include foodEntryId in the body for targeted deletion
