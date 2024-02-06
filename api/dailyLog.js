@@ -52,15 +52,25 @@ export default async (req, res) => {
             break;
         }
         case 'DELETE': {
-            // For deleting a daily log by date
-            const { date } = req.body; // Assuming the body contains a 'date' field
+            const { date, foodEntryId } = req.body; // Include foodEntryId in the body for targeted deletion
             
             try {
+              if (foodEntryId) {
+                // Deleting a specific food entry from the daily log
+                const result = await DailyLog.updateOne(
+                  { user: userId, date: new Date(date) },
+                  { $pull: { foodEntries: { _id: foodEntryId } } } // Adjust based on your schema
+                );
+                if (result.modifiedCount === 0) return res.status(404).json({ message: "Food entry not found or already deleted" });
+                res.json({ message: "Food entry deleted successfully" });
+              } else {
+                // Existing logic for deleting the entire daily log
                 const result = await DailyLog.deleteOne({ user: userId, date: new Date(date) });
                 if (result.deletedCount === 0) return res.status(404).json({ message: "Daily log not found or already deleted" });
                 res.json({ message: "Daily log deleted successfully" });
+              }
             } catch (error) {
-                res.status(400).json({ message: error.message });
+              res.status(400).json({ message: error.message });
             }
             break;
         }
