@@ -2,6 +2,9 @@
 import dbConnect from './database/dbConnection.js';
 import DailyLog from './models/DailyLog.js';
 import jwt from 'jsonwebtoken';
+// Needed for the GET request even though Food is not called in code
+import Food from './models/Food.js';
+// Needed for the GET request even though Food is not called in code
 
 export default async (req, res) => {
     await dbConnect();
