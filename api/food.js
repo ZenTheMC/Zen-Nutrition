@@ -32,11 +32,19 @@ export default async (req, res) => {
             break;
         }
         case 'GET': {
+            const { searchQuery } = req.query; // Assuming the query parameter is named 'searchQuery'
+            
+            let query = { user: userId }; // Default query includes only user's own foods
+            
+            if (searchQuery) {
+              query = { ...query, name: { $regex: searchQuery, $options: "i" } }; // Case-insensitive regex search
+            }
+          
             try {
-                const foods = await Food.find({ user: userId });
-                res.json(foods);
+              const foods = await Food.find(query);
+              res.json(foods);
             } catch (error) {
-                res.status(500).json({ message: error.message });
+              res.status(500).json({ message: error.message });
             }
             break;
         }
