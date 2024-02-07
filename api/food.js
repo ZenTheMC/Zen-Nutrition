@@ -1,4 +1,3 @@
-// Vercel API endpoint serverless function
 import dbConnect from './database/dbConnection.js';
 import Food from './models/Food.js';
 import jwt from 'jsonwebtoken';
@@ -32,12 +31,12 @@ export default async (req, res) => {
             break;
         }
         case 'GET': {
-            const { searchQuery } = req.query; // Assuming the query parameter is named 'searchQuery'
+            const { searchQuery } = req.query;
             
-            let query = { user: userId }; // Default query includes only user's own foods
+            let query = { user: userId };
             
             if (searchQuery) {
-              query = { ...query, name: { $regex: searchQuery, $options: "i" } }; // Case-insensitive regex search
+              query = { ...query, name: { $regex: searchQuery, $options: "i" } };
             }
           
             try {
@@ -64,7 +63,7 @@ export default async (req, res) => {
             break;
         }
         case 'DELETE': {
-            const { _id } = req.body; // Adjust as needed for how you're passing the _id
+            const { _id } = req.body;
             try {
                 const deletedFood = await Food.findOneAndDelete({ _id, user: userId });
                 if (!deletedFood) return res.status(404).json({ message: "Food entry not found or user mismatch" });

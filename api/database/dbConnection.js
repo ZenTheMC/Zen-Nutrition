@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-// Conditionally load environment variables in non-production environments
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config({ path: './config/.env' });
 }
@@ -33,7 +32,6 @@ async function dbConnect() {
     cached.conn = await cached.promise;
     return cached.conn;
   } catch (err) {
-    // Handle the error here or log it
     console.error('MongoDB connection error:', err);
     throw err;
   }

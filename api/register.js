@@ -1,4 +1,3 @@
-// Vercel API endpoint serverless function
 import User from './models/User.js';
 import jwt from 'jsonwebtoken';
 import dbConnect from './database/dbConnection.js';
@@ -8,7 +7,6 @@ export default async (req, res) => {
 
   if (req.method === 'POST') {
     try {
-      // Directly use the plain password; it will be hashed by the model's pre save middleware
       const { username, email, password } = req.body;
       const user = new User({ username, email: email.toLowerCase(), password });
       await user.save();
