@@ -1,7 +1,8 @@
 import dbConnect from './database/dbConnection.js';
 import DailyLog from './models/DailyLog.js';
 import jwt from 'jsonwebtoken';
-import Food from './models/Food.js'; // Needed for the GET request
+// Food import deeded for the GET request
+import Food from './models/Food.js';
 
 export default async (req, res) => {
     await dbConnect();
