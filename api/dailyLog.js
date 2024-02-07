@@ -79,6 +79,29 @@ export default async (req, res) => {
           }
           break;
         }
+        case 'PUT': {
+          const { date, foodEntryId, newQuantity } = req.body;
+          
+          try {
+            // Find the daily log for the given date and user
+            const dailyLog = await DailyLog.findOne({ user: userId, date: new Date(date) });
+            if (!dailyLog) return res.status(404).json({ message: "Daily log not found" });
+            
+            // Find the specific food entry in the daily log
+            const foodEntry = dailyLog.foodEntries.id(foodEntryId);
+            if (!foodEntry) return res.status(404).json({ message: "Food entry not found" });
+            
+            // Update the quantity of the food entry
+            foodEntry.quantity = newQuantity;
+            
+            // Save the updated daily log
+            await dailyLog.save();
+            res.json({ message: "Food entry updated successfully", dailyLog });
+          } catch (error) {
+            res.status(500).json({ message: error.message });
+          }
+          break;
+        }        
         case 'DELETE': {
             const { date, foodEntryId } = req.body; // Include foodEntryId in the body for targeted deletion
             
