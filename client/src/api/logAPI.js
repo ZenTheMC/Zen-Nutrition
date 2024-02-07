@@ -1,0 +1,1 @@
+const API_URL = 'https://zen-nutrition-backend.vercel.app/api';
