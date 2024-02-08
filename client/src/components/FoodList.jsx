@@ -1,11 +1,13 @@
 import React from 'react';
 import FoodItem from './FoodItem';
 
-const FoodList = ({ foodItems }) => {
+// Added onDelete prop
+const FoodList = ({ foodItems, onDelete }) => {
   return (
     <div>
       {foodItems.map((item) => (
-        <FoodItem key={item.id} {...item} />
+        // Pass onDelete to each FoodItem correctly
+        <FoodItem key={item.id} {...item} onDelete={() => onDelete(item.id)} />
       ))}
     </div>
   );
