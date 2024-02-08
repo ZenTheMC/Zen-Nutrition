@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { registerUser } from '../api/userAPI';
+import { useDispatch } from 'react-redux';
+import { registerUserThunk } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,9 +13,8 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
     try {
-      await registerUser(username, email, password);
+      await dispatch(registerUserThunk({ username, email, password }));
       console.log('Registration successful');
       navigate('/log-in');
     } catch (error) {

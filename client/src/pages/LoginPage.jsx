@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { loginUser } from '../api/userAPI';
+import { useDispatch } from 'react-redux';
+import { loginUserThunk } from '../store/userSlice';
 import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -10,10 +12,9 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
     try {
-      const data = await loginUser(email, password);
-      console.log('Login successful', data);
+      await dispatch(loginUserThunk({ email, password }));
+      console.log('Login successful');
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed', error);

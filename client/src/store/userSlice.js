@@ -29,6 +29,7 @@ export const registerUserThunk = createAsyncThunk(
 // Initial state
 const initialState = {
   user: null,
+  isLoggedIn: false,
   token: null,
   status: 'idle',
   error: null,
@@ -41,6 +42,7 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      state.isLoggedIn = false;
       state.token = null;
       state.status = 'idle';
       state.error = null;
