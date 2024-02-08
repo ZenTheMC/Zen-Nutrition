@@ -5,9 +5,10 @@ const getAuthHeader = () => {
     return { 'Authorization': `Bearer ${token}` };
 };
 
-// Fetch all food items
-export const fetchFoods = async () => {
-  const response = await fetch(`${API_URL}/food`, {
+// Fetch all food items which can also use name search
+export const fetchFoods = async (searchQuery = "") => {
+  const url = `${API_URL}/food${searchQuery ? `?searchQuery=${searchQuery}` : ""}`;
+  const response = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
