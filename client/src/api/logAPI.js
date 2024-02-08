@@ -31,3 +31,31 @@ export const addFoodToDailyLog = async (date, foodEntry) => {
     if (!response.ok) throw new Error('Could not add food to daily log');
     return await response.json();
 };
+
+// Updating a food entry's quantity in a daily log
+export const updateFoodEntryInDailyLog = async (date, foodEntryId, newQuantity) => {
+  const response = await fetch(`${API_URL}/daily-log`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeader(),
+      },
+      body: JSON.stringify({ date, foodEntryId, newQuantity }),
+  });
+  if (!response.ok) throw new Error('Could not update food entry in daily log');
+  return await response.json();
+};
+
+// Deleting a food entry from a daily log
+export const deleteFoodEntryFromDailyLog = async (date, foodEntryId) => {
+  const response = await fetch(`${API_URL}/daily-log`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeader(),
+      },
+      body: JSON.stringify({ date, foodEntryId }),
+  });
+  if (!response.ok) throw new Error('Could not delete food entry from daily log');
+  return await response.json();
+};
