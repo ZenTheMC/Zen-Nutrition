@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from '../store/userSlice';
 import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/dashboard');
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await dispatch(loginUserThunk({ email, password }));
       console.log('Login successful');
-      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed', error);
       setErrorMessage('Login failed. Please check your credentials.');

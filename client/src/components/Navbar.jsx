@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/userSlice';
 import { Link } from 'react-router-dom';
@@ -6,16 +6,9 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logout());
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/dashboard');
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <nav className="flex justify-between items-center py-4">
