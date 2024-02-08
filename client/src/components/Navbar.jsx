@@ -11,12 +11,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/log-in">Log In</Link>
-      <Link to="/sign-up">Sign Up</Link>
-      {isLoggedIn && (
-        <button onClick={handleLogout}>Logout</button>
+    <nav className="flex justify-between items-center py-4">
+      <div>
+        <Link to="/" className="mr-4">Home</Link>
+        {!isLoggedIn && (
+          <>
+            <Link to="/log-in" className="mr-4">Log In</Link>
+            <Link to="/sign-up" className="mr-4">Sign Up</Link>
+          </>
+        )}
+      </div>
+      {isLoggedIn ? (
+        <div>
+          <Link to="/dashboard" className="mr-4">Dashboard</Link>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      ) : (
+        <p className="text-sm">Log in to access the dashboard.</p>
       )}
     </nav>
   );
