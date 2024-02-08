@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import FoodItem from './FoodItem';
 
-const FoodList = () => {
+const FoodList = ({ foodItems }) => {
   return (
-    <div>FoodList</div>
-  )
-}
+    <div>
+      {foodItems.map((item) => (
+        <FoodItem key={item.id} {...item} />
+      ))}
+    </div>
+  );
+};
 
-export default FoodList
+export default FoodList;
