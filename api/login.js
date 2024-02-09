@@ -6,6 +6,22 @@ import dbConnect from './database/dbConnection.js';
 export default async (req, res) => {
   await dbConnect();
 
+  // Set CORS headers
+  const allowedOrigin = process.env.NODE_ENV === 'production'
+    ? 'https://zen-nutrition.vercel.app'
+    : 'http://localhost:5173';
+
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  // Immediately return a 200 for OPTIONS preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   if (req.method === 'POST') {
     const { email, password } = req.body;
 
