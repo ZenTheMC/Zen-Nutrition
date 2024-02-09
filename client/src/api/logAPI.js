@@ -7,7 +7,7 @@ const getAuthHeader = () => {
 
 // Fetch the daily log for a specific date
 export const fetchDailyLog = async (date) => {
-    const response = await fetch(`${API_URL}/daily-log?date=${date}`, {
+    const response = await fetch(`${API_URL}/dailyLog?date=${date}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export const fetchDailyLog = async (date) => {
   
 // Add a food item to the daily log
 export const addFoodToDailyLog = async (date, foodEntry) => {
-    const response = await fetch(`${API_URL}/daily-log`, {
+    const response = await fetch(`${API_URL}/dailyLog`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const addFoodToDailyLog = async (date, foodEntry) => {
 
 // Updating a food entry's quantity in a daily log
 export const updateFoodEntryInDailyLog = async (date, foodEntryId, newQuantity) => {
-  const response = await fetch(`${API_URL}/daily-log`, {
+  const response = await fetch(`${API_URL}/dailyLog`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const updateFoodEntryInDailyLog = async (date, foodEntryId, newQuantity) 
 
 // Deleting a food entry from a daily log
 export const deleteFoodEntryFromDailyLog = async (date, foodEntryId) => {
-  const response = await fetch(`${API_URL}/daily-log`, {
+  const response = await fetch(`${API_URL}/dailyLog`, {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json',

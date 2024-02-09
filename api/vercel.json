@@ -8,32 +8,14 @@
   ],
   "routes": [
     {
-      "src": "/api/register",
-      "dest": "/register.js"
-    },
-    {
-      "src": "/api/login",
-      "dest": "/login.js"
-    },
-    {
-      "src": "/api/food",
-      "dest": "/food.js"
-    },
-    {
-      "src": "/api/daily-log",
-      "dest": "/dailyLog.js"
-    },
-    {
-      "src": "/api/daily-log/(.*)",
-      "dest": "/dailyLog.js"
+      "src": "/api/(.*)",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "dest": "/api/$1.js"
     }
   ],
   "build": {
     "env": {
       "NODE_ENV": "production"
-    },
-    "installCommand": "npm install",
-    "buildCommand": "echo 'No build step'",
-    "outputDirectory": "./"
+    }
   }
 }
