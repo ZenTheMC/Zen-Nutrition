@@ -6,7 +6,7 @@ export const loginUserThunk = createAsyncThunk(
   'user/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const data = await userAPI.loginUser(email, password);
+      const data = await userAPI.loginUser({ email, password }); // changed to match register function that works by destructuring arguments
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -17,10 +17,8 @@ export const loginUserThunk = createAsyncThunk(
 export const registerUserThunk = createAsyncThunk(
   'user/register',
   async ({ username, email, password }, { rejectWithValue }) => {
-    console.log("Thunk payload:", { username, email, password }); // This should log actual values, not elements
     try {
-      console.log("Thunk payload:", { username, email, password });
-      const data = await userAPI.registerUser({ username, email, password }); // changed from const data = await userAPI.registerUser(user);
+      const data = await userAPI.registerUser({ username, email, password });
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -59,6 +57,7 @@ const userSlice = createSlice({
         state.status = 'succeeded';
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.isLoggedIn = true;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.status = 'failed';
