@@ -14,6 +14,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log({ username, email, password });
       await dispatch(registerUserThunk({ username, email, password }));
       console.log('Registration successful');
       navigate('/log-in');
