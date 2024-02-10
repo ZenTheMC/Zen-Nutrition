@@ -24,6 +24,7 @@ export default async (req, res) => {
 
   if (req.method === 'POST') {
     try {
+      console.log("Received request body:", req.body);
       const { username, email, password } = req.body;
       const user = new User({ username, email: email.toLowerCase(), password });
       await user.save();

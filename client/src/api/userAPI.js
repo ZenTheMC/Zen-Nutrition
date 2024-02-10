@@ -30,10 +30,10 @@ export const registerUser = async (username, email, password) => {
       body: JSON.stringify({ username, email, password }),
     });
     if (!response.ok) {
-      throw new Error('Failed to register');
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.error || 'Failed to register');
     }
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error('Registration error:', error);
     throw error;
