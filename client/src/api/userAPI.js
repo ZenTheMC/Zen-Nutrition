@@ -20,8 +20,10 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const registerUser = async (username, email, password) => {
+export const registerUser = async ({ username, email, password }) => {
+  console.log("Sending request body:", { username, email, password });
   try {
+    console.log("Sending request body:", { username, email, password });
     const response = await fetch(`${API_URL}/register`, {
       method: 'POST',
       headers: {

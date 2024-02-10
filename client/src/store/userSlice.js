@@ -16,9 +16,11 @@ export const loginUserThunk = createAsyncThunk(
 
 export const registerUserThunk = createAsyncThunk(
   'user/register',
-  async (user, { rejectWithValue }) => {
+  async ({ username, email, password }, { rejectWithValue }) => {
+    console.log("Thunk payload:", { username, email, password }); // This should log actual values, not elements
     try {
-      const data = await userAPI.registerUser(user);
+      console.log("Thunk payload:", { username, email, password });
+      const data = await userAPI.registerUser({ username, email, password }); // changed from const data = await userAPI.registerUser(user);
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
