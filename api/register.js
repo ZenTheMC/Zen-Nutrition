@@ -30,7 +30,8 @@ export default async (req, res) => {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
       res.status(201).json({ token });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error('Registration error:', error);
+      res.status(500).json({ error: 'Internal server error', details: error.message });
     }
   } else {
     res.setHeader('Allow', ['POST']);
