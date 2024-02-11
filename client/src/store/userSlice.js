@@ -46,6 +46,7 @@ const userSlice = createSlice({
       state.token = null;
       state.status = 'idle';
       state.error = null;
+      localStorage.removeItem('token');
     },
   },
   extraReducers: (builder) => {
@@ -58,6 +59,7 @@ const userSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        localStorage.setItem('token', action.payload.token);
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.status = 'failed';
