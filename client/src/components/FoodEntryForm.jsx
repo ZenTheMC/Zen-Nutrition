@@ -4,10 +4,11 @@ import { addFoodToDailyLog, updateFoodEntryInDailyLog } from '../api/logAPI';
 
 const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodId }) => {
   const [name, setName] = useState('');
-  const [protein, setProtein] = useState(0);
-  const [carbs, setCarbs] = useState(0);
-  const [fats, setFats] = useState(0);
-  const [quantity, setQuantity] = useState(100);
+  const [protein, setProtein] = useState("");
+  const [carbs, setCarbs] = useState("");
+  const [fats, setFats] = useState("");
+  const [amount, setAmount] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
@@ -25,6 +26,11 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
     if ((mode === 'addFood' || mode === 'updateFood') && fats < 0) {
       newErrors.fats = 'Fats must be 0 or more.';
     }
+    if (mode === 'addFood' || mode === 'updateFood') {
+      if (amount !== "" && parseFloat(amount) <= 0) {
+        newErrors.amount = 'Amount must be greater than 0.';
+      }
+    }
     if ((mode === 'addEntry' || mode === 'updateEntry') && quantity <= 0) {
       newErrors.quantity = 'Quantity must be greater than 0.';
     }
@@ -39,11 +45,22 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
 
     try {
       if (mode === 'addFood') {
-        await addFood({ name, protein, carbs, fats });
+        const foodData = {
+          name,
+          protein: parseFloat(protein) || 0,
+          carbs: parseFloat(carbs) || 0,
+          fats: parseFloat(fats) || 0,
+          ...(amount !== "" && { amount: parseFloat(amount) }),
+        };
+        await addFood(foodData);
       } else if (mode === 'updateFood') {
         await updateFood(selectedFoodId, { protein, carbs, fats });
       } else if (mode === 'addEntry') {
-        await addFoodToDailyLog(date, { food: selectedFoodId, quantity });
+        const entryData = {
+          food: selectedFoodId,
+          quantity: parseInt(quantity) || 100,
+        };
+        await addFoodToDailyLog(date, entryData);
       } else if (mode === 'updateEntry') {
         await updateFoodEntryInDailyLog(date, foodEntryId, { quantity });
       }
@@ -103,6 +120,13 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
             required
           />
           {errors.fats && <p className="text-red-500">{errors.fats}</p>}
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder="Amount (Optional)"
+          />
+          {errors.amount && <p className="text-red-500">{errors.amount}</p>}
         </>
       )}
       {(mode === 'addEntry' || mode === 'updateEntry') && (
@@ -111,7 +135,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
-            placeholder="Quantity"
+            placeholder="Quantity (g)"
             required
           />
           {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}

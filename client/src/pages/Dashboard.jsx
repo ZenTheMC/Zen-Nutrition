@@ -12,6 +12,8 @@ const Dashboard = () => {
   const [selectedFoodId, setSelectedFoodId] = useState(null);
   const [formMode, setFormMode] = useState('addEntry');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [foodsMessage, setFoodsMessage] = useState('');
+  const [dailyLogMessage, setDailyLogMessage] = useState('');
   const [nutritionalSummary, setNutritionalSummary] = useState({
     totalProtein: 0,
     totalCarbs: 0,
@@ -26,9 +28,20 @@ const Dashboard = () => {
   }, []);
 
   const loadFoods = async (searchQuery = '') => {
-    const fetchedFoods = await fetchFoods(searchQuery);
-    setFoods(fetchedFoods);
+    try {
+      const fetchedFoods = await fetchFoods(searchQuery);
+      setFoods(fetchedFoods);
+      if (fetchedFoods.length === 0) {
+        setFoodsMessage('No foods found. Add a new food to get started!');
+      } else {
+        setFoodsMessage('');
+      }
+    } catch (error) {
+      console.error("Error fetching foods", error);
+      setFoodsMessage('An error occurred while fetching your foods.');
+    }
   };
+  
 
   const loadDailyLog = async () => {
     try {
@@ -41,7 +54,12 @@ const Dashboard = () => {
         totalCalories: data.totalCalories,
       });
     } catch (error) {
-      console.error('Error fetching daily log', error);
+        if (error.message.includes('Daily log not found')) {
+          setDailyLogMessage('No entries for today. Start by adding your first food entry!');
+        } else {
+          console.error('Error fetching daily log', error);
+          setDailyLogMessage('An error occurred while fetching your daily log.');
+        }
     }
   };
 
@@ -72,6 +90,8 @@ const Dashboard = () => {
         <p>Fats: {nutritionalSummary.totalFats}g</p>
         <p>Calories: {nutritionalSummary.totalCalories}</p>
       </div>
+      {foodsMessage && <p className="font-semibold">{foodsMessage}</p>}
+      {dailyLogMessage && <p className="font-bold">{dailyLogMessage}</p>}
       <button onClick={handleAddFoodClick} className="m-4 p-2 bg-blue-500 text-white rounded">Add New Food to Database</button>
       <button onClick={handleAddEntryClick} className="m-4 p-2 bg-green-500 text-white rounded">Add Entry to Log</button>
       <FoodList foodItems={dailyLog} onDelete={loadDailyLog} />

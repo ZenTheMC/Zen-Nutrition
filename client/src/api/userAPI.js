@@ -1,6 +1,6 @@
 const API_URL = 'https://zen-nutrition-backend.vercel.app/api';
 
-export const loginUser = async ({ email, password }) => { // changed params to be destructured to match register which works
+export const loginUser = async ({ email, password }) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
@@ -10,10 +10,10 @@ export const loginUser = async ({ email, password }) => { // changed params to b
       body: JSON.stringify({ email, password }),
     });
     if (!response.ok) {
-      const errorResponse = await response.json(); // changed error handling to match register
-      throw new Error(errorResponse.error || 'Failed to log in'); // changed error handling to match register
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.error || 'Failed to log in');
     }
-    return await response.json(); // returned directly instead of having two lines with variable that stores response + return variable, to match register
+    return await response.json();
   } catch (error) {
     console.error('Login error:', error);
     throw error;
