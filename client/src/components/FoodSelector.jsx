@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const FoodSelector = ({ onSelect, searchFoods }) => {
+const FoodSelector = ({ foods, onSelect, searchFoods }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredFoods, setFilteredFoods] = useState([]);
+  const [filteredFoods, setFilteredFoods] = useState(foods);
+
+  useEffect(() => {
+    setFilteredFoods(foods);
+  }, [foods]);
 
   useEffect(() => {
     const handleSearch = async () => {
@@ -10,7 +14,7 @@ const FoodSelector = ({ onSelect, searchFoods }) => {
         const searchedFoods = await searchFoods(searchTerm);
         setFilteredFoods(searchedFoods);
       } else {
-        setFilteredFoods([]);
+        setFilteredFoods(foods);
       }
     };
 
@@ -19,7 +23,12 @@ const FoodSelector = ({ onSelect, searchFoods }) => {
     }, 500);
 
     return () => clearTimeout(delayDebounce);
-  }, [searchTerm, searchFoods]);
+  }, [searchTerm, foods, searchFoods]);
+
+  // Debugging: Log the foods to see if they are being passed and updated correctly.
+  useEffect(() => {
+    console.log('Foods in FoodSelector:', filteredFoods);
+  }, [filteredFoods]);
 
   return (
     <div>
@@ -31,11 +40,15 @@ const FoodSelector = ({ onSelect, searchFoods }) => {
       />
       <select onChange={(e) => onSelect(e.target.value)}>
         <option value="">Select a Food</option>
-        {filteredFoods.map((food) => (
-          <option key={food._id} value={food._id}>
-            {food.name}
-          </option>
-        ))}
+        {filteredFoods.length > 0 ? (
+          filteredFoods.map((food) => (
+            <option key={food._id} value={food._id}>
+              {food.name}
+            </option>
+          ))
+        ) : (
+          <option disabled>No foods available</option>
+        )}
       </select>
     </div>
   );

@@ -30,6 +30,7 @@ const Dashboard = () => {
   const loadFoods = async (searchQuery = '') => {
     try {
       const fetchedFoods = await fetchFoods(searchQuery);
+      console.log('Fetched Foods:', fetchedFoods); // Add this line for debugging
       setFoods(fetchedFoods);
       if (fetchedFoods.length === 0) {
         setFoodsMessage('No foods found. Add a new food to get started!');
