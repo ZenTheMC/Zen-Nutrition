@@ -93,7 +93,7 @@ const Dashboard = () => {
       {dailyLogMessage && <p className="font-bold">{dailyLogMessage}</p>}
       <button onClick={handleAddFoodClick} className="m-4 p-2 bg-blue-500 text-white rounded">Add New Food to Database</button>
       <button onClick={handleAddEntryClick} className="m-4 p-2 bg-green-500 text-white rounded">Add Entry to Log</button>
-      <FoodList foodItems={dailyLog} onDelete={loadDailyLog} />
+      <FoodList foodItems={dailyLog} date={currentDate} onDelete={loadDailyLog} />
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {formMode === 'addEntry' && (
           <FoodSelector

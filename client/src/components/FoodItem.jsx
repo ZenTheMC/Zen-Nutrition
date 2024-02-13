@@ -1,10 +1,10 @@
 import React from 'react';
 import { deleteFoodEntryFromDailyLog } from '../api/logAPI';
 
-const FoodItem = ({ food, quantity, onDelete }) => {
+const FoodItem = ({ food, quantity, onDelete, _id, date }) => {
   const handleDelete = async () => {
     try {
-      await deleteFoodEntryFromDailyLog(food._id);
+      await deleteFoodEntryFromDailyLog(date, _id);
       onDelete();
     } catch (error) {
       console.error('Error deleting food entry', error);
