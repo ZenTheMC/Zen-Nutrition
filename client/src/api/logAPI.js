@@ -51,17 +51,18 @@ export const updateFoodEntryInDailyLog = async (date, foodEntryId, newQuantity) 
   return data;
 };
 
-// Deleting a food entry from a daily log
-export const deleteFoodEntryFromDailyLog = async (date, foodEntryId) => {
+// Deleting a food entry or the entire daily log
+export const deleteFoodEntryFromDailyLog = async (date, foodEntryId = null) => {
+  const bodyContent = foodEntryId ? { date, foodEntryId } : { date };
   const response = await fetch(`${API_URL}/dailyLog`, {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json',
           ...getAuthHeader(),
       },
-      body: JSON.stringify({ date, foodEntryId }),
+      body: JSON.stringify(bodyContent),
   });
   const data = await response.json();
-  if (!response.ok) throw new Error('Could not delete food entry from daily log');
+  if (!response.ok) throw new Error(`Could not delete ${foodEntryId ? 'food entry' : 'daily log'} from daily log`);
   return data;
 };

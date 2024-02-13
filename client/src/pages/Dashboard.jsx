@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchDailyLog } from '../api/logAPI';
+import { fetchDailyLog, deleteFoodEntryFromDailyLog } from '../api/logAPI';
 import { fetchFoods } from '../api/foodAPI';
 import FoodList from '../components/FoodList';
 import FoodEntryForm from '../components/FoodEntryForm';
@@ -80,6 +80,23 @@ const Dashboard = () => {
     setIsModalOpen(true);
   };
 
+  const handleDeleteAllFoodsForToday = async () => {
+    try {
+      await deleteFoodEntryFromDailyLog(currentDate);
+      alert("All food entries for today have been deleted."); // Use a more user-friendly notification system
+      setDailyLog([]); // Reset the daily log state to an empty array
+      setNutritionalSummary({ // Reset the nutritional summary to zero
+      totalProtein: 0,
+      totalCarbs: 0,
+      totalFats: 0,
+      totalCalories: 0,
+    });
+    } catch (error) {
+      console.error("Error deleting all food entries for today", error);
+      alert("Failed to delete all food entries for today."); // Use a more user-friendly notification system
+    }
+  };
+
   return (
     <div>
       <div>
@@ -93,6 +110,7 @@ const Dashboard = () => {
       {dailyLogMessage && <p className="font-bold">{dailyLogMessage}</p>}
       <button onClick={handleAddFoodClick} className="m-4 p-2 bg-blue-500 text-white rounded">Add New Food to Database</button>
       <button onClick={handleAddEntryClick} className="m-4 p-2 bg-green-500 text-white rounded">Add Entry to Log</button>
+      <button onClick={handleDeleteAllFoodsForToday} className="m-4 p-2 bg-red-500 text-white rounded">Delete All Foods for Today</button>
       <FoodList foodItems={dailyLog} date={currentDate} onDelete={loadDailyLog} />
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {formMode === 'addEntry' && (
