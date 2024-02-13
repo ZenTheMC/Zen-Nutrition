@@ -30,19 +30,17 @@ const Dashboard = () => {
   const loadFoods = async (searchQuery = '') => {
     try {
       const fetchedFoods = await fetchFoods(searchQuery);
-      console.log('Fetched Foods:', fetchedFoods); // Add this line for debugging
       setFoods(fetchedFoods);
-      if (fetchedFoods.length === 0) {
-        setFoodsMessage('No foods found. Add a new food to get started!');
-      } else {
-        setFoodsMessage('');
-      }
+      setFoodsMessage(fetchedFoods.length === 0 ? 'No foods found. Add a new food to get started!' : '');
     } catch (error) {
       console.error("Error fetching foods", error);
       setFoodsMessage('An error occurred while fetching your foods.');
     }
   };
   
+  const handleSearchFoods = async (searchQuery) => {
+    await loadFoods(searchQuery);
+  };
 
   const loadDailyLog = async () => {
     try {
@@ -101,7 +99,7 @@ const Dashboard = () => {
           <FoodSelector
             foods={foods}
             onSelect={setSelectedFoodId}
-            searchFoods={(query) => loadFoods(query)}
+            onSearch={handleSearchFoods}
           />
         )}
         <FoodEntryForm
