@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [foodsMessage, setFoodsMessage] = useState('');
   const [dailyLogMessage, setDailyLogMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useState('');
   const [nutritionalSummary, setNutritionalSummary] = useState({
     totalProtein: 0,
     totalCarbs: 0,
@@ -53,12 +54,8 @@ const Dashboard = () => {
         totalCalories: data.totalCalories,
       });
     } catch (error) {
-        if (error.message.includes('Daily log not found')) {
-          setDailyLogMessage('No entries for today. Start by adding your first food entry!');
-        } else {
-          console.error('Error fetching daily log', error);
-          setDailyLogMessage('An error occurred while fetching your daily log.');
-        }
+      console.error('No daily log present for date', error);
+      setDailyLogMessage('Log your foods!');
     }
   };
 
@@ -83,17 +80,19 @@ const Dashboard = () => {
   const handleDeleteAllFoodsForToday = async () => {
     try {
       await deleteFoodEntryFromDailyLog(currentDate);
-      alert("All food entries for today have been deleted."); // Use a more user-friendly notification system
-      setDailyLog([]); // Reset the daily log state to an empty array
-      setNutritionalSummary({ // Reset the nutritional summary to zero
+      setDeleteMessage("All food entries for this date have been deleted.");
+      setTimeout(() => setDeleteMessage(''), 5000);
+      setDailyLog([]);
+      setNutritionalSummary({
       totalProtein: 0,
       totalCarbs: 0,
       totalFats: 0,
       totalCalories: 0,
     });
+    loadDailyLog();
     } catch (error) {
       console.error("Error deleting all food entries for today", error);
-      alert("Failed to delete all food entries for today."); // Use a more user-friendly notification system
+      setDeleteMessage("Failed to delete all food entries for date.");
     }
   };
 
@@ -108,6 +107,14 @@ const Dashboard = () => {
       </div>
       {foodsMessage && <p className="font-semibold">{foodsMessage}</p>}
       {dailyLogMessage && <p className="font-bold">{dailyLogMessage}</p>}
+      {deleteMessage && (
+        <div className="flex justify-between items-center bg-red-100 text-red-700 p-4 rounded">
+          <p>{deleteMessage}</p>
+          <button onClick={() => setDeleteMessage('')} className="bg-red-500 text-white rounded px-4 py-2">
+            Close
+          </button>
+        </div>
+      )}
       <button onClick={handleAddFoodClick} className="m-4 p-2 bg-blue-500 text-white rounded">Add New Food to Database</button>
       <button onClick={handleAddEntryClick} className="m-4 p-2 bg-green-500 text-white rounded">Add Entry to Log</button>
       <button onClick={handleDeleteAllFoodsForToday} className="m-4 p-2 bg-red-500 text-white rounded">Delete All Foods for Today</button>
