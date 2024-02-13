@@ -97,43 +97,53 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Nutritional Summary for {currentDate}</h1>
-        <p>Protein: {nutritionalSummary.totalProtein}g</p>
-        <p>Carbs: {nutritionalSummary.totalCarbs}g</p>
-        <p>Fats: {nutritionalSummary.totalFats}g</p>
-        <p>Calories: {nutritionalSummary.totalCalories}</p>
-      </div>
-      {foodsMessage && <p className="font-semibold">{foodsMessage}</p>}
-      {dailyLogMessage && <p className="font-bold">{dailyLogMessage}</p>}
-      {deleteMessage && (
-        <div className="flex justify-between items-center bg-red-100 text-red-700 p-4 rounded">
-          <p>{deleteMessage}</p>
-          <button onClick={() => setDeleteMessage('')} className="bg-red-500 text-white rounded px-4 py-2">
-            Close
+    <div className="min-h-screen bg-gray-200 dark:bg-gray-700 p-4">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Nutritional Summary for {currentDate}</h1>
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-4">
+          <p className="text-gray-800 dark:text-gray-200">Protein: {nutritionalSummary.totalProtein}g</p>
+          <p className="text-gray-800 dark:text-gray-200">Carbs: {nutritionalSummary.totalCarbs}g</p>
+          <p className="text-gray-800 dark:text-gray-200">Fats: {nutritionalSummary.totalFats}g</p>
+          <p className="text-gray-800 dark:text-gray-200">Calories: {nutritionalSummary.totalCalories}</p>
+        </div>
+        {foodsMessage && <p className="font-semibold text-center text-gray-800 dark:text-white mb-4">{foodsMessage}</p>}
+        {dailyLogMessage && <p className="font-bold text-center text-gray-800 dark:text-white mb-4">{dailyLogMessage}</p>}
+        {deleteMessage && (
+          <div className="flex justify-between items-center bg-red-100 dark:bg-red-700 text-red-700 dark:text-white p-4 rounded mb-4">
+            <p>{deleteMessage}</p>
+            <button onClick={() => setDeleteMessage('')} className="bg-red-500 dark:bg-red-600 text-white rounded px-4 py-2">
+              Close
+            </button>
+          </div>
+        )}
+        <div className="flex flex-wrap justify-center gap-4">
+          <button onClick={handleAddFoodClick} className="px-4 py-2 bg-blue-500 dark:bg-blue-700 text-white rounded hover:bg-blue-600 dark:hover:bg-blue-800 transition">
+            Add New Food to Database
+          </button>
+          <button onClick={handleAddEntryClick} className="px-4 py-2 bg-green-500 dark:bg-green-700 text-white rounded hover:bg-green-600 dark:hover:bg-green-800 transition">
+            Add Entry to Log
+          </button>
+          <button onClick={handleDeleteAllFoodsForToday} className="px-4 py-2 bg-red-500 dark:bg-red-700 text-white rounded hover:bg-red-600 dark:hover:bg-red-800 transition">
+            Delete All Foods for Today
           </button>
         </div>
-      )}
-      <button onClick={handleAddFoodClick} className="m-4 p-2 bg-blue-500 text-white rounded">Add New Food to Database</button>
-      <button onClick={handleAddEntryClick} className="m-4 p-2 bg-green-500 text-white rounded">Add Entry to Log</button>
-      <button onClick={handleDeleteAllFoodsForToday} className="m-4 p-2 bg-red-500 text-white rounded">Delete All Foods for Today</button>
-      <FoodList foodItems={dailyLog} date={currentDate} onDelete={loadDailyLog} />
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {formMode === 'addEntry' && (
-          <FoodSelector
-            foods={foods}
-            onSelect={setSelectedFoodId}
-            onSearch={handleSearchFoods}
+        <FoodList foodItems={dailyLog} date={currentDate} onDelete={loadDailyLog} />
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          {formMode === 'addEntry' && (
+            <FoodSelector
+              foods={foods}
+              onSelect={setSelectedFoodId}
+              onSearch={handleSearchFoods}
+            />
+          )}
+          <FoodEntryForm
+            mode={formMode}
+            onSubmitSuccess={handleFormSubmitSuccess}
+            date={currentDate}
+            selectedFoodId={selectedFoodId}
           />
-        )}
-        <FoodEntryForm
-          mode={formMode}
-          onSubmitSuccess={handleFormSubmitSuccess}
-          date={currentDate}
-          selectedFoodId={selectedFoodId}
-        />
-      </Modal>
+        </Modal>
+      </div>
     </div>
   );
 };
