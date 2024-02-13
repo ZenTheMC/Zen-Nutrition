@@ -81,69 +81,111 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 space-y-4">
       {(mode === 'addFood' || mode === 'updateFood') && (
-        <>
+        <div className="mb-4">
+          <label htmlFor="food-name" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
+            Food Name
+          </label>
           <input
+            id="food-name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Food Name"
+            placeholder="Enter food name"
             required={mode === 'addFood'}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors.name && <p className="text-red-500">{errors.name}</p>}
-        </>
+          {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
+        </div>
       )}
-      {(mode === 'addFood' || mode === 'updateFood') && (
-        <>
-          <input
-            type="number"
-            value={protein}
-            onChange={(e) => setProtein(parseFloat(e.target.value))}
-            placeholder="Protein (g)"
-            required
-          />
-          {errors.protein && <p className="text-red-500">{errors.protein}</p>}
-          <input
-            type="number"
-            value={carbs}
-            onChange={(e) => setCarbs(parseFloat(e.target.value))}
-            placeholder="Carbs (g)"
-            required
-          />
-          {errors.carbs && <p className="text-red-500">{errors.carbs}</p>}
-          <input
-            type="number"
-            value={fats}
-            onChange={(e) => setFats(parseFloat(e.target.value))}
-            placeholder="Fats (g)"
-            required
-          />
-          {errors.fats && <p className="text-red-500">{errors.fats}</p>}
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Amount (Optional)"
-          />
-          {errors.amount && <p className="text-red-500">{errors.amount}</p>}
-        </>
-      )}
-      {(mode === 'addEntry' || mode === 'updateEntry') && (
-        <>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
-            placeholder="Quantity (g)"
-            required
-          />
-          {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}
-        </>
-      )}
-      <button type="submit">
-        {getButtonText(mode)}
-      </button>
+      <div className="grid grid-cols-2 gap-4">
+        {(mode === 'addFood' || mode === 'updateFood') && (
+          <>
+            <div className="mb-4">
+              <label htmlFor="protein" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
+                Protein (g)
+              </label>
+              <input
+                id="protein"
+                type="number"
+                value={protein}
+                onChange={(e) => setProtein(e.target.value)}
+                placeholder="Protein"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              {errors.protein && <p className="text-red-500 text-xs italic">{errors.protein}</p>}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="carbs" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
+                Carbs (g)
+              </label>
+              <input
+                id="carbs"
+                type="number"
+                value={carbs}
+                onChange={(e) => setCarbs(e.target.value)}
+                placeholder="Carbs"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              {errors.carbs && <p className="text-red-500 text-xs italic">{errors.carbs}</p>}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="fats" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
+                Fats (g)
+              </label>
+              <input
+                id="fats"
+                type="number"
+                value={fats}
+                onChange={(e) => setFats(e.target.value)}
+                placeholder="Fats"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              {errors.fats && <p className="text-red-500 text-xs italic">{errors.fats}</p>}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="amount" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
+                Amount (Optional)
+              </label>
+              <input
+                id="amount"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Amount"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              {errors.amount && <p className="text-red-500 text-xs italic">{errors.amount}</p>}
+            </div>
+          </>
+        )}
+        {(mode === 'addEntry' || mode === 'updateEntry') && (
+          <div className="col-span-2">
+            <label htmlFor="quantity" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
+              Quantity (g)
+            </label>
+            <input
+              id="quantity"
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              placeholder="Quantity"
+              required
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+            />
+            {errors.quantity && <p className="text-red-500 text-xs italic">{errors.quantity}</p>}
+          </div>
+        )}
+        <div className="col-span-2">
+          <button
+            type="submit"
+            className="bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out w-full"
+          >
+            {getButtonText(mode)}
+          </button>
+        </div>
+      </div>
     </form>
   );
 };

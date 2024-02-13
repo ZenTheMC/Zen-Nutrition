@@ -17,14 +17,18 @@ const FoodSelector = ({ foods, onSelect, onSearch }) => {
   }, [debounceValue, onSearch]);
 
   return (
-    <div>
+    <div className="p-4">
       <input
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700 mb-4"
         type="text"
         placeholder="Search Food by Name"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <select onChange={(e) => onSelect(e.target.value)}>
+      <select
+        className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
+        onChange={(e) => onSelect(e.target.value)}
+      >
         <option value="">Select a Food</option>
         {foods.length > 0 ? (
           foods.map((food) => (
