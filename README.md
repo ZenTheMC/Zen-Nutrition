@@ -6,13 +6,13 @@ PROBLEM: Many people I've worked with have no idea how to construct their diet w
 
 SOLUTION: I created a user-friendly and science-based responsive full-stack application:
 
-|| A food logging database ||
+|| A food logging database and nutrition tracker ||
 
 **Link to project:**
 
 [Zen Nutrition](<LIVE VERSION URL>)
 
-![App Logo](https://drive.google.com/uc?export=view&id=1rJACkTCTARcP5WiBNMxjdwFxGOmQGMUn) ![App Screenshot](<DRIVE SCREENSHOT>)
+![App Logo](https://drive.google.com/uc?export=view&id=1rJACkTCTARcP5WiBNMxjdwFxGOmQGMUn) ![App Screenshot](https://drive.google.com/uc?export=view&id=1VcLDlqJWLecm-dCUBEZstC2WKWasXFZk)
 
 ## How It's Made:
 
