@@ -10,7 +10,7 @@ SOLUTION: I created a user-friendly and science-based responsive full-stack appl
 
 **Link to project:**
 
-[Zen Nutrition](<LIVE VERSION URL>)
+[Zen Nutrition](https://zen-nutrition.vercel.app)
 
 ![App Logo](https://drive.google.com/uc?export=view&id=1rJACkTCTARcP5WiBNMxjdwFxGOmQGMUn) ![App Screenshot](https://drive.google.com/uc?export=view&id=1VcLDlqJWLecm-dCUBEZstC2WKWasXFZk)
 
