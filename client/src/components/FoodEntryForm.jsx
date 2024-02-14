@@ -81,7 +81,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 space-y-4">
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 m-1 space-y-4">
       {(mode === 'addFood' || mode === 'updateFood') && (
         <div className="mb-4">
           <label htmlFor="food-name" className="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">
@@ -94,7 +94,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter food name"
             required={mode === 'addFood'}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
           />
           {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
         </div>
@@ -112,7 +112,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
                 value={protein}
                 onChange={(e) => setProtein(e.target.value)}
                 placeholder="Protein"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
               />
               {errors.protein && <p className="text-red-500 text-xs italic">{errors.protein}</p>}
             </div>
@@ -126,7 +126,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
                 value={carbs}
                 onChange={(e) => setCarbs(e.target.value)}
                 placeholder="Carbs"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
               />
               {errors.carbs && <p className="text-red-500 text-xs italic">{errors.carbs}</p>}
             </div>
@@ -140,7 +140,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
                 value={fats}
                 onChange={(e) => setFats(e.target.value)}
                 placeholder="Fats"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
               />
               {errors.fats && <p className="text-red-500 text-xs italic">{errors.fats}</p>}
             </div>
@@ -154,7 +154,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Amount"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
               />
               {errors.amount && <p className="text-red-500 text-xs italic">{errors.amount}</p>}
             </div>
@@ -172,7 +172,7 @@ const FoodEntryForm = ({ date, foodEntryId, mode, onSubmitSuccess, selectedFoodI
               onChange={(e) => setQuantity(e.target.value)}
               placeholder="Quantity"
               required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700"
             />
             {errors.quantity && <p className="text-red-500 text-xs italic">{errors.quantity}</p>}
           </div>

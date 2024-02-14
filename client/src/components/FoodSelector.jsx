@@ -17,11 +17,11 @@ const FoodSelector = ({ foods, onSelect, onSearch }) => {
   }, [debounceValue, onSearch]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 m-4">
       <input
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline bg-white dark:bg-gray-700 mb-4"
         type="text"
-        placeholder="Search Food by Name"
+        placeholder="Filter by Name - Then Pick Below"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

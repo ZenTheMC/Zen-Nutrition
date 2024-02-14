@@ -1,5 +1,7 @@
 import React from 'react';
 import { deleteFoodEntryFromDailyLog } from '../api/logAPI';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const FoodItem = ({ food, quantity, onDelete, _id, date }) => {
   const handleDelete = async () => {
@@ -20,9 +22,9 @@ const FoodItem = ({ food, quantity, onDelete, _id, date }) => {
       <p className="text-gray-600 dark:text-gray-400">Quantity: {quantity}g</p>
       <button
         onClick={handleDelete}
-        className="mt-4 bg-red-500 dark:bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-700 dark:hover:bg-red-700"
+        className="mt-4 bg-red-500 dark:bg-red-600 text-white font-bold px-3 py-2 rounded hover:bg-red-700 dark:hover:bg-red-700"
       >
-        Delete
+        <FontAwesomeIcon icon={faTrashCan}/>
       </button>
     </div>
   );
